@@ -26,4 +26,4 @@ if (isNaN(numero)){
 
         console.log(`${numero} * ${i} = ${result}`)
     }
-}
+}  
