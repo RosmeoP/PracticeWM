@@ -54,8 +54,8 @@ console.log(months.length);
 
 // contraseña con intentos maximos
 
-var atemps = 0;
-var maxAtemps = 3;
+let atemps = 0;
+const maxAtemps = 3;
 
 do {
   contraseñaCorrecta = "MoisesgayButMauriEsmas";
