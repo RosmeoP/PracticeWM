@@ -54,14 +54,22 @@ console.log(months.length);
 
 // contraseña con intentos maximos
 
-contraseñaCorrecta = "MoisesgayButMauriEsmas";
+var atemps = 0;
+var maxAtemps = 3;
 
-let contraseñaIntento = window.prompt("Ingrese su contraseña");
+do {
+  contraseñaCorrecta = "MoisesgayButMauriEsmas";
+  atemps++;
+  if (atemps > maxAtemps) {
+    break;
+  }
+  let contraseñaIntento = window.prompt("Ingrese su contraseña");
 
-if (contraseñaIntento === contraseñaCorrecta) {
-  console.log("Su contraseña es correcta, ¡Bienvenido!");
-}
+  if (contraseñaIntento === contraseñaCorrecta) {
+    console.log("Su contraseña es correcta, ¡Bienvenido!");
+  }
 
-if (contraseñaIntento !== contraseñaCorrecta) {
-  console.log("Contraseña equivocada, intente de nuevo");
-}
+  if (contraseñaIntento !== contraseñaCorrecta) {
+    console.log("Contraseña equivocada, intente de nuevo");
+  }
+} while (atemps <= maxAtemps);
