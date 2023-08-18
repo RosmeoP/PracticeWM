@@ -51,17 +51,25 @@ const FactoryTask = (titleTask) => {
 
   const removeButtonNode = FactoryElement(DELETEBUTTON, "button");
   const updateButtonNode = FactoryElement(UPDATEBUTTON, "button");
-
+  const compleatedButtonNode = FactoryElement(UPDATEBUTTON, "input", {
+    type: "checkbox",
+  });
   fatherNode.appendChild(titleNode);
   fatherNode.appendChild(removeButtonNode);
   fatherNode.appendChild(updateButtonNode);
-
+  fatherNode.appendChild(compleatedButtonNode);
   return fatherNode;
 };
 
-const FactoryElement = (text, element) => {
+const FactoryElement = (text, element, options = null) => {
   const fatherNode = document.createElement(element);
   const textNode = document.createTextNode(text);
+  if (options != null) {
+    for (const key in options) {
+      fatherNode.setAttribute(key, options[key]);
+    }
+  }
+
   fatherNode.appendChild(textNode);
   return fatherNode;
 };
