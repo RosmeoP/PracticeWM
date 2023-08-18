@@ -69,6 +69,7 @@ do {
   if (contraseñaIntento === contraseñaCorrecta) {
     window.alert("Su contraseña es correcta, ¡Bienvenido!");
     console.log("Su contraseña es correcta, ¡Bienvenido!");
+    break;
   }
 
   if (contraseñaIntento !== contraseñaCorrecta) {
