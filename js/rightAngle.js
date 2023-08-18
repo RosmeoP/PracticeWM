@@ -61,15 +61,18 @@ do {
   contraseñaCorrecta = "MoisesgayButMauriEsmas";
   atemps++;
   if (atemps > maxAtemps) {
+    window.alert("Ha excedido el número de intentos");
     break;
   }
   let contraseñaIntento = window.prompt("Ingrese su contraseña");
 
   if (contraseñaIntento === contraseñaCorrecta) {
+    window.alert("Su contraseña es correcta, ¡Bienvenido!");
     console.log("Su contraseña es correcta, ¡Bienvenido!");
   }
 
   if (contraseñaIntento !== contraseñaCorrecta) {
+    window.alert("Contraseña equivocada, intente de nuevo");
     console.log("Contraseña equivocada, intente de nuevo");
   }
 } while (atemps <= maxAtemps);
