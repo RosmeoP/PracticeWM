@@ -1,5 +1,6 @@
 const DELETEBUTTON = "Delete Task";
 const UPDATEBUTTON = "Update Task";
+const COMPLETEDLABEL = "Task completed";
 
 const tasks = {};
 
@@ -20,6 +21,7 @@ const addTask = () => {
   tasks[newTask] = {
     value: newTask,
     node: node,
+    id: uuidv4(),
   };
 
   renderTask();
@@ -51,12 +53,14 @@ const FactoryTask = (titleTask) => {
 
   const removeButtonNode = FactoryElement(DELETEBUTTON, "button");
   const updateButtonNode = FactoryElement(UPDATEBUTTON, "button");
-  const compleatedButtonNode = FactoryElement(UPDATEBUTTON, "input", {
+  const labelcompleatedNode = FactoryElement(COMPLETEDLABEL, "label");
+  const compleatedButtonNode = FactoryElement("", "input", {
     type: "checkbox",
   });
   fatherNode.appendChild(titleNode);
   fatherNode.appendChild(removeButtonNode);
   fatherNode.appendChild(updateButtonNode);
+  fatherNode.appendChild(labelcompleatedNode);
   fatherNode.appendChild(compleatedButtonNode);
   return fatherNode;
 };
@@ -73,3 +77,13 @@ const FactoryElement = (text, element, options = null) => {
   fatherNode.appendChild(textNode);
   return fatherNode;
 };
+
+function uuidv4() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+    // eslint-disable-next-line no-bitwise
+    const r = (Math.random() * 16) | 0;
+    // eslint-disable-next-line no-bitwise
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
