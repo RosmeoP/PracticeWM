@@ -46,6 +46,9 @@ const TaskExist = (key) => {
   const taskExist = tasks[key]?.value;
   taskExist;
 };
+const updateTask = (key) => {
+  const taskExist = tasks[key]?.value;
+};
 
 const FactoryTask = (titleTask, values = null) => {
   const fatherNode = document.createElement("div");
@@ -56,7 +59,11 @@ const FactoryTask = (titleTask, values = null) => {
     value: DELETEBUTTON,
     onclick: `deleteTask('${titleTask}')`,
   });
-  const updateButtonNode = FactoryElement(UPDATEBUTTON, "input", {});
+  const updateButtonNode = FactoryElement(UPDATEBUTTON, "input", {
+    type: "button",
+    value: UPDATEBUTTON,
+    onclick: `updateTask('${titleTask}')`,
+  });
   const labelcompleatedNode = FactoryElement(COMPLETEDLABEL, "label");
   const compleatedButtonNode = FactoryElement("", "input", {
     type: "checkbox",
