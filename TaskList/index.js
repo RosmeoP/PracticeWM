@@ -79,13 +79,14 @@ const FactoryTask = (titleTask, values = null) => {
 const FactoryElement = (text, element, options = null) => {
   const fatherNode = document.createElement(element);
   const textNode = document.createTextNode(text);
+  fatherNode.appendChild(textNode);
+
   if (options != null) {
     for (const key in options) {
       fatherNode.setAttribute(key, options[key]);
     }
   }
 
-  fatherNode.appendChild(textNode);
   return fatherNode;
 };
 

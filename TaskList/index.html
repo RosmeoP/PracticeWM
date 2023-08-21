@@ -10,16 +10,19 @@
 </head>
 
 <body>
-    <section>
-        <header>
-            <h1>Task List</h1>
-        </header>
-    </section>
-    <main>
+    <nav class="layout">
         <section>
-            <label for="taskInput"></label>
-            <input type="text" name="taskInput" id="taskInput">
-            <button onclick="addTask()">Add</button>
+            <header>
+                <h1>Task List</h1>
+            </header>
+        </section>
+    </nav>
+
+    <main class="layout">
+        <section>
+            <label for="taskInput">New Task</label>
+            <input type="text" name="taskInput" id="taskInput" class="input-primary">
+            <button onclick="addTask()" class="btn-primary">Add</button>
         </section>
         <section>
             <ul id="tasksList">
@@ -30,9 +33,7 @@
         <script src="./index.js"></script>
     </main>
 
-    <section>
-        <p><h1>Moises flaca</h1></p>
-    </section>
+
 </body>
 
 </html>
