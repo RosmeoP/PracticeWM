@@ -87,8 +87,22 @@ const fruits = ["Apple", "Orange", "Watermelon", "Pear"]
 
 const berries = ['strawberry', 'blueberry', 'rasberry'];
 
-fruits.push(berries)
+fruits.concat(berries)
 
-let frutas = fruits.push(berries)
+typeof fruits
+console.log(fruits)
 
-console.log(frutas)
+const Newfruits = fruits.concat(berries)
+
+console.log(Newfruits)
+
+
+
+let select = prompt("Ingrese su fruta favorita");
+console.log(Newfruits);
+
+if (Newfruits.includes(select)) {
+    console.log("Su fruta favorita está dentro del array");
+} else {
+    console.log("Su fruta favorita no está en el array");
+}
