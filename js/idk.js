@@ -82,11 +82,26 @@ console.log(x);
 let y = x.reverse();
 
 console.log(y);
+
 */
-const fruits = ["Apple", "Orange", "Watermelon", "Pear"]
 
-const berries = ['strawberry', 'blueberry', 'rasberry'];
+const stdin = process.openStdin();
+const readFromStdin = new Promise((resolve, reject) => {
+  try {
+    stdin.addListener("data", (d) => {
+      const fruta = d.toString().trim();
+      resolve(fruta);
+    });
+  } catch (err) {
+    reject("error");
+  }
+});
 
+const fruits = ["Apple", "Orange", "Watermelon", "Pear"];
+
+const berries = ["strawberry", "blueberry", "rasberry"];
+
+<<<<<<< HEAD
 fruits.concat(berries)
 
 typeof fruits
@@ -106,3 +121,15 @@ if (Newfruits.includes(select)) {
 } else {
     console.log("Su fruta favorita no está en el array");
 }
+=======
+fruits.push(berries);
+
+console.log("ingrese una fruta: ");
+
+readFromStdin
+  .then((fruta) => {
+    fruits.push(fruta);
+    console.log(fruits);
+  })
+  .catch((err) => console.log(err));
+>>>>>>> 6f2af7b51149db155c1bd8d03f8d1bcc62f444bb
