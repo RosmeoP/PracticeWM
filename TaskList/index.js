@@ -22,16 +22,20 @@ const addTask = () => {
   if (taskExist) {
     tasks[taskExist.id] = BuildTask(
       newTask,
-      FactoryTask(newTask, taskExist.id),
-      taskExist.id
+      FactoryTask({
+        titleTask: newTask,
+        id: taskExist.id,
+        status: taskExist.status,
+      }),
+      taskExist.id,
+      taskExist.status
     );
-    console.log(tasks);
     renderTask();
     return;
   }
   const id = uuidv4();
-  const node = FactoryTask(newTask, id);
-  tasks[id] = BuildTask(newTask, node, id);
+  const node = FactoryTask({ titleTask: newTask, id, status: false });
+  tasks[id] = BuildTask(newTask, node, id, false);
 
   renderTask();
 };
@@ -39,12 +43,6 @@ const addTask = () => {
 const deleteTask = (key) => {
   delete tasks[key];
   renderTask();
-};
-
-const renderTask = () => {
-  taskInput.value = "";
-  tasksElements.innerHTML = "";
-  Object.values(tasks)?.forEach((x) => tasksElements.appendChild(x.node));
 };
 
 const TaskExist = () => {
@@ -60,14 +58,25 @@ const updateTask = (key) => {
   taskInput.value = task.value;
   taskInput.focus();
 };
+const updateTaskStatus = (key) => {
+  const task = tasks[key];
+  task.status = !task.status;
+  renderTask();
+};
 
-const FactoryTask = (titleTask, id) => {
+const renderTask = () => {
+  taskInput.value = "";
+  tasksElements.innerHTML = "";
+  Object.values(tasks)?.forEach((x) => tasksElements.appendChild(x.node));
+};
+
+const FactoryTask = (task) => {
   const fatherNode = document.createElement("div");
   fatherNode.style.width = "90%";
   fatherNode.style.display = "flex";
   fatherNode.style.justifyContent = "space-between";
 
-  const titleNode = FactoryElement(titleTask, "h4");
+  const titleNode = FactoryElement(task.titleTask, "h4");
   titleNode.classList.add("taskTitle");
 
   const removeButtonNode = FactoryElement(
@@ -75,11 +84,11 @@ const FactoryTask = (titleTask, id) => {
     "input",
     {
       type: "button",
-      onclick: `deleteTask('${id}')`,
+      onclick: `deleteTask('${task.id}')`,
     },
     {
       background: "url('./assets/delete.png')",
-      width: "2rem",
+      width: "2.5rem",
       height: "2rem",
       "background-size": "cover",
       cursor: "pointer",
@@ -92,11 +101,11 @@ const FactoryTask = (titleTask, id) => {
     "input",
     {
       type: "button",
-      onclick: `updateTask('${id}')`,
+      onclick: `updateTask('${task.id}')`,
     },
     {
       background: "url('./assets/editing.png')",
-      width: "2rem",
+      width: "2.5rem",
       height: "2rem",
       "background-size": "cover",
       cursor: "pointer",
@@ -109,6 +118,7 @@ const FactoryTask = (titleTask, id) => {
     "input",
     {
       type: "checkbox",
+      onclick: `updateTaskStatus('${task.id}')`,
     },
     {
       width: "2.2rem",
@@ -148,10 +158,11 @@ const FactoryElement = (text, element, options = null, styles = null) => {
   return fatherNode;
 };
 
-const BuildTask = (value, node, id) => ({
+const BuildTask = (value, node, id, status) => ({
   value,
   node,
   id,
+  status,
 });
 
 function uuidv4() {
