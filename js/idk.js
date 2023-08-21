@@ -82,13 +82,32 @@ console.log(x);
 let y = x.reverse();
 
 console.log(y);
+
 */
-const fruits = ["Apple", "Orange", "Watermelon", "Pear"]
 
-const berries = ['strawberry', 'blueberry', 'rasberry'];
+const stdin = process.openStdin();
+const readFromStdin = new Promise((resolve, reject) => {
+  try {
+    stdin.addListener("data", (d) => {
+      const fruta = d.toString().trim();
+      resolve(fruta);
+    });
+  } catch (err) {
+    reject("error");
+  }
+});
 
-fruits.push(berries)
+const fruits = ["Apple", "Orange", "Watermelon", "Pear"];
 
-let frutas = fruits.push(berries)
+const berries = ["strawberry", "blueberry", "rasberry"];
 
-console.log(frutas)
+fruits.push(berries);
+
+console.log("ingrese una fruta: ");
+
+readFromStdin
+  .then((fruta) => {
+    fruits.push(fruta);
+    console.log(fruits);
+  })
+  .catch((err) => console.log(err));
