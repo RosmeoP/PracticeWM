@@ -96,12 +96,11 @@ const readFromStdin = new Promise((resolve, reject) => {
     reject("error");
   }
 });
-
+/*
 const fruits = ["Apple", "Orange", "Watermelon", "Pear"];
 
 const berries = ["strawberry", "blueberry", "rasberry"];
 
-<<<<<<< HEAD
 fruits.concat(berries)
 
 typeof fruits
@@ -120,8 +119,8 @@ if (Newfruits.includes(select)) {
     console.log("Su fruta favorita está dentro del array");
 } else {
     console.log("Su fruta favorita no está en el array");
-}
-=======
+    */
+
 fruits.push(berries);
 
 console.log("ingrese una fruta: ");
@@ -132,4 +131,5 @@ readFromStdin
     console.log(fruits);
   })
   .catch((err) => console.log(err));
->>>>>>> 6f2af7b51149db155c1bd8d03f8d1bcc62f444bb
+
+  
