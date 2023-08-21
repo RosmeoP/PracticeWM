@@ -20,23 +20,18 @@ const addTask = () => {
   newTask = taskInput.value;
   const taskExist = TaskExist();
   if (taskExist) {
-    tasks[taskExist.id] = {
-      value: newTask,
-      node: FactoryTask(newTask, taskExist.id),
-      id: taskExist.id,
-    };
-    taskInput.value = "";
+    tasks[taskExist.id] = BuildTask(
+      newTask,
+      FactoryTask(newTask, taskExist.id),
+      taskExist.id
+    );
+    console.log(tasks);
     renderTask();
     return;
   }
-  taskInput.value = "";
   const id = uuidv4();
   const node = FactoryTask(newTask, id);
-  tasks[id] = {
-    value: newTask,
-    node: node,
-    id,
-  };
+  tasks[id] = BuildTask(newTask, node, id);
 
   renderTask();
 };
@@ -51,6 +46,8 @@ const renderTask = () => {
   //   const keyTasks = new Set(
   //     ...tasksElements.childNodes?.map((x) => x?.childNodes[0])
   //   );
+
+  taskInput.value = "";
   tasksElements.innerHTML = "";
   Object.values(tasks)?.forEach((x) => tasksElements.appendChild(x.node));
 };
@@ -73,20 +70,43 @@ const FactoryTask = (titleTask, id) => {
   const fatherNode = document.createElement("div");
   const titleNode = FactoryElement(titleTask, "h4");
 
-  const removeButtonNode = FactoryElement(DELETEBUTTON, "input", {
-    type: "button",
-    value: DELETEBUTTON,
-    onclick: `deleteTask('${id}')`,
-  });
-  const updateButtonNode = FactoryElement(UPDATEBUTTON, "input", {
-    type: "button",
-    value: UPDATEBUTTON,
-    onclick: `updateTask('${id}')`,
-  });
+  const removeButtonNode = FactoryElement(
+    "",
+    "input",
+    {
+      type: "button",
+      onclick: `deleteTask('${id}')`,
+    },
+    {
+      margin: "auto",
+      background: "url('./assets/delete.png')",
+      width: "2rem",
+      height: "2rem",
+      "background-size": "cover",
+      cursor: "pointer",
+    }
+  );
+  const updateButtonNode = FactoryElement(
+    "",
+    "input",
+    {
+      type: "button",
+      onclick: `updateTask('${id}')`,
+    },
+    {
+      margin: "auto",
+      background: "url('./assets/editing.png')",
+      width: "2rem",
+      height: "2rem",
+      "background-size": "cover",
+      cursor: "pointer",
+    }
+  );
   const labelcompleatedNode = FactoryElement(COMPLETEDLABEL, "label");
   const compleatedButtonNode = FactoryElement("", "input", {
     type: "checkbox",
   });
+
   fatherNode.appendChild(titleNode);
   fatherNode.appendChild(removeButtonNode);
   fatherNode.appendChild(updateButtonNode);
@@ -95,7 +115,7 @@ const FactoryTask = (titleTask, id) => {
   return fatherNode;
 };
 
-const FactoryElement = (text, element, options = null) => {
+const FactoryElement = (text, element, options = null, styles = null) => {
   const fatherNode = document.createElement(element);
   const textNode = document.createTextNode(text);
   fatherNode.appendChild(textNode);
@@ -106,8 +126,22 @@ const FactoryElement = (text, element, options = null) => {
     }
   }
 
+  if (styles != null) {
+    for (const key in styles) {
+      if (styles.hasOwnProperty(key)) {
+        fatherNode.style[key] = styles[key];
+      }
+    }
+  }
+
   return fatherNode;
 };
+
+const BuildTask = (value, node, id) => ({
+  value,
+  node,
+  id,
+});
 
 function uuidv4() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {

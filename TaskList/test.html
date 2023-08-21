@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+
+    <input type="button" id="myInputButton" value="Click me">
+
+    <script>
+        function applyStyles(element, styles) {
+            for (var property in styles) {
+                if (styles.hasOwnProperty(property)) {
+                    element.style[property] = styles[property];
+                }
+            }
+        }
+
+        var inputButton = document.getElementById("myInputButton");
+        var buttonStyles = {
+            background: "url('./assets/delete.png')",
+            width: "200px",
+            height: "100px"
+        };
+        applyStyles(inputButton, buttonStyles);
+    </script>
+
+</body>
+
+</html>
