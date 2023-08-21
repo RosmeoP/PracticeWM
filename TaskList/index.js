@@ -9,6 +9,12 @@ const tasksElements = document.querySelector("#tasksList");
 let newTask = "";
 let currentTask = null;
 
+taskInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    addTask();
+  }
+});
+
 const addTask = () => {
   newTask = taskInput.value;
   const taskExist = TaskExist(newTask);
