@@ -97,17 +97,25 @@ const readFromStdin = new Promise((resolve, reject) => {
   }
 });
 
+const readline = require("readline");
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
 const fruits = ["Apple", "Orange", "Watermelon", "Pear"];
 
 const berries = ["strawberry", "blueberry", "rasberry"];
 
 fruits.push(berries);
 
-console.log("ingrese una fruta: ");
-
-readFromStdin
-  .then((fruta) => {
-    fruits.push(fruta);
-    console.log(fruits);
-  })
-  .catch((err) => console.log(err));
+rl.question("ingrese una fruta: ", (answer) => {
+  fruits.push(answer);
+  console.log(fruits);
+});
+// readFromStdin
+//   .then((fruta) => {
+//     fruits.push(fruta);
+//     console.log(fruits);
+//   })
+//   .catch((err) => console.log(err));
