@@ -18,7 +18,8 @@ const arr = [1, 2, 3, 4, 5];
 arr.unshift(0); // [0, 1, 2, 3, 4, 5]
 
 console.log(arr)
-*/
+
+
 
 numero.unshift(0);
 
@@ -65,14 +66,15 @@ console.log(sumNumbs);
 let newNumbs1 = numbs.splice(0, 2);
 
 console.log(newNumbs1);
-/* 
+
 let x = [1,2,3,4,5]
 
 
 x.reverse();
 
 console.log(x)
-*/
+
+
 x = numbs.concat(arr);
 
 console.log(x);
@@ -80,3 +82,13 @@ console.log(x);
 let y = x.reverse();
 
 console.log(y);
+*/
+const fruits = ["Apple", "Orange", "Watermelon", "Pear"]
+
+const berries = ['strawberry', 'blueberry', 'rasberry'];
+
+fruits.push(berries)
+
+let frutas = fruits.push(berries)
+
+console.log(frutas)
