@@ -42,11 +42,6 @@ const deleteTask = (key) => {
 };
 
 const renderTask = () => {
-  //   console.log(tasksElements.childNodes.map((x) => x));
-  //   const keyTasks = new Set(
-  //     ...tasksElements.childNodes?.map((x) => x?.childNodes[0])
-  //   );
-
   taskInput.value = "";
   tasksElements.innerHTML = "";
   Object.values(tasks)?.forEach((x) => tasksElements.appendChild(x.node));
@@ -68,7 +63,12 @@ const updateTask = (key) => {
 
 const FactoryTask = (titleTask, id) => {
   const fatherNode = document.createElement("div");
+  fatherNode.style.width = "90%";
+  fatherNode.style.display = "flex";
+  fatherNode.style.justifyContent = "space-between";
+
   const titleNode = FactoryElement(titleTask, "h4");
+  titleNode.classList.add("taskTitle");
 
   const removeButtonNode = FactoryElement(
     "",
@@ -78,12 +78,13 @@ const FactoryTask = (titleTask, id) => {
       onclick: `deleteTask('${id}')`,
     },
     {
-      margin: "auto",
       background: "url('./assets/delete.png')",
       width: "2rem",
       height: "2rem",
       "background-size": "cover",
       cursor: "pointer",
+      padding: "0.5rem",
+      margin: "0.5rem",
     }
   );
   const updateButtonNode = FactoryElement(
@@ -94,24 +95,34 @@ const FactoryTask = (titleTask, id) => {
       onclick: `updateTask('${id}')`,
     },
     {
-      margin: "auto",
       background: "url('./assets/editing.png')",
       width: "2rem",
       height: "2rem",
       "background-size": "cover",
       cursor: "pointer",
+      padding: "0.5rem",
+      margin: "0.5rem",
     }
   );
-  const labelcompleatedNode = FactoryElement(COMPLETEDLABEL, "label");
-  const compleatedButtonNode = FactoryElement("", "input", {
-    type: "checkbox",
-  });
+  const compleatedButtonNode = FactoryElement(
+    "",
+    "input",
+    {
+      type: "checkbox",
+    },
+    {
+      width: "2.2rem",
+      height: "2.2rem",
+      cursor: "pointer",
+      padding: "0.5rem",
+      margin: "0.3rem",
+    }
+  );
 
   fatherNode.appendChild(titleNode);
+  fatherNode.appendChild(compleatedButtonNode);
   fatherNode.appendChild(removeButtonNode);
   fatherNode.appendChild(updateButtonNode);
-  fatherNode.appendChild(labelcompleatedNode);
-  fatherNode.appendChild(compleatedButtonNode);
   return fatherNode;
 };
 
@@ -145,9 +156,8 @@ const BuildTask = (value, node, id) => ({
 
 function uuidv4() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-    // eslint-disable-next-line no-bitwise
     const r = (Math.random() * 16) | 0;
-    // eslint-disable-next-line no-bitwise
+
     const v = c === "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
