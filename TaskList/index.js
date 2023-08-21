@@ -6,6 +6,7 @@ const tasks = {};
 
 const taskInput = document.querySelector("#taskInput");
 const tasksElements = document.querySelector("#tasksList");
+
 let newTask = "";
 let currentTask = null;
 
@@ -17,17 +18,24 @@ taskInput.addEventListener("keypress", (e) => {
 
 const addTask = () => {
   newTask = taskInput.value;
-  const taskExist = TaskExist(newTask);
+  const taskExist = TaskExist();
   if (taskExist) {
-    alert(`The task ${newTask} exist.`);
+    tasks[taskExist.id] = {
+      value: newTask,
+      node: FactoryTask(newTask, taskExist.id),
+      id: taskExist.id,
+    };
+    taskInput.value = "";
+    renderTask();
     return;
   }
   taskInput.value = "";
-  const node = FactoryTask(newTask);
-  tasks[newTask] = {
+  const id = uuidv4();
+  const node = FactoryTask(newTask, id);
+  tasks[id] = {
     value: newTask,
     node: node,
-    id: uuidv4(),
+    id,
   };
 
   renderTask();
@@ -45,30 +53,35 @@ const renderTask = () => {
   //   );
   tasksElements.innerHTML = "";
   Object.values(tasks)?.forEach((x) => tasksElements.appendChild(x.node));
-  console.log(tasks);
 };
 
-const TaskExist = (key) => {
-  const taskExist = tasks[key]?.value;
-  taskExist;
+const TaskExist = () => {
+  let taskExist = null;
+  if (currentTask) {
+    taskExist = tasks[currentTask.id];
+  }
+  return taskExist;
 };
 const updateTask = (key) => {
-  const taskExist = tasks[key]?.value;
+  const task = tasks[key];
+  currentTask = task;
+  taskInput.value = task.value;
+  taskInput.focus();
 };
 
-const FactoryTask = (titleTask, values = null) => {
+const FactoryTask = (titleTask, id) => {
   const fatherNode = document.createElement("div");
   const titleNode = FactoryElement(titleTask, "h4");
 
   const removeButtonNode = FactoryElement(DELETEBUTTON, "input", {
     type: "button",
     value: DELETEBUTTON,
-    onclick: `deleteTask('${titleTask}')`,
+    onclick: `deleteTask('${id}')`,
   });
   const updateButtonNode = FactoryElement(UPDATEBUTTON, "input", {
     type: "button",
     value: UPDATEBUTTON,
-    onclick: `updateTask('${titleTask}')`,
+    onclick: `updateTask('${id}')`,
   });
   const labelcompleatedNode = FactoryElement(COMPLETEDLABEL, "label");
   const compleatedButtonNode = FactoryElement("", "input", {
