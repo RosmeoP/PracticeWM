@@ -96,32 +96,65 @@ const readFromStdin = new Promise((resolve, reject) => {
     reject("error");
   }
 });
+<<<<<<< HEAD
 /*
+=======
+
+const readline = require("readline");
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+>>>>>>> 5444880002c462f218b32d8b0937757bdaf02dcd
 const fruits = ["Apple", "Orange", "Watermelon", "Pear"];
 
 const berries = ["strawberry", "blueberry", "rasberry"];
 
+<<<<<<< HEAD
 fruits.concat(berries)
 
 typeof fruits
 console.log(fruits)
 
 const Newfruits = fruits.concat(berries)
+=======
+fruits.concat(berries);
+>>>>>>> 5444880002c462f218b32d8b0937757bdaf02dcd
 
-console.log(Newfruits)
+typeof fruits;
+console.log(fruits);
 
+const Newfruits = fruits.concat(berries);
 
+console.log(Newfruits);
 
 let select = prompt("Ingrese su fruta favorita");
 console.log(Newfruits);
 
 if (Newfruits.includes(select)) {
-    console.log("Su fruta favorita está dentro del array");
+  console.log("Su fruta favorita está dentro del array");
 } else {
+<<<<<<< HEAD
     console.log("Su fruta favorita no está en el array");
     */
 
+=======
+  console.log("Su fruta favorita no está en el array");
+}
+>>>>>>> 5444880002c462f218b32d8b0937757bdaf02dcd
 fruits.push(berries);
+
+rl.question("ingrese una fruta: ", (answer) => {
+  fruits.push(answer);
+  console.log(fruits);
+});
+// readFromStdin
+//   .then((fruta) => {
+//     fruits.push(fruta);
+//     console.log(fruits);
+//   })
+//   .catch((err) => console.log(err));
 
 console.log("ingrese una fruta: ");
 
@@ -131,5 +164,8 @@ readFromStdin
     console.log(fruits);
   })
   .catch((err) => console.log(err));
+<<<<<<< HEAD
 
   
+=======
+>>>>>>> 5444880002c462f218b32d8b0937757bdaf02dcd
