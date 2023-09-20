@@ -13,6 +13,7 @@ interface ITreeNode<T> {
     levelOrder(): void;
     size(): number;
     print(node: ITreeNode<T> | null): void;
+    inorder(node: ITreeNode<T> | null): void;
   }
   
   class TreeNode<T> implements ITreeNode<T> {
@@ -60,7 +61,20 @@ interface ITreeNode<T> {
         }
       }
     }
-  
+    insertRecursive(value: T, root: ITreeNode<T> | null = null){
+      if (root == null) {
+        const newNode = new TreeNode(value);
+        if (this.root == null) this.root = newNode;
+        return newNode;
+      } else {
+        if (value < root.value) {
+          root.left = this.insert(value, root.left);
+        } else {
+          root.right = this.insert(value, root.right);
+        }
+        return root;
+      }
+    }
     search(value: T): ITreeNode<T> {
       throw new Error("Method not implemented.");
     }
@@ -84,6 +98,14 @@ interface ITreeNode<T> {
       this.print(node.left);
       this.print(node.right);
     }
+    inorder(node: ITreeNode<T> | null): void {
+      if (node == null) {
+        return;
+      }
+      this.inorder(node.left);
+      console.log(node.value);
+      this.inorder(node.right);
+    }
   }
   
   const tree = new Tree();
@@ -98,5 +120,5 @@ interface ITreeNode<T> {
   tree.insert(9);
   tree.insert(1);
   tree.insert(10);
-  tree.print(tree.root);
+  tree.inorder(tree.root);
   
