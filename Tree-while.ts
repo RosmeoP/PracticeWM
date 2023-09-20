@@ -7,7 +7,7 @@ interface ITreeNode<T> {
   interface ITree<T> {
     root: ITreeNode<T> | null;
     insert(value: T): void;
-    search(value: T): ITreeNode<T>;
+    search(value: T): ITreeNode<T> | null;
     remove(value: T): void;
     height(): number;
     levelOrder(): void;
@@ -75,8 +75,26 @@ interface ITreeNode<T> {
         return root;
       }
     }
-    search(value: T): ITreeNode<T> {
-      throw new Error("Method not implemented.");
+    search(value: T): ITreeNode<T> | null {
+      return this.recursiveSearch(this.root, value);
+    }
+  
+    private recursiveSearch(
+      node: ITreeNode<T> | null,
+      value: T
+    ): ITreeNode<T> | null {
+      if (node == null) {
+        return null;
+      } else {
+        if (value == node.value) {
+          return node;
+        }
+        if (value < node.value) {
+          return this.recursiveSearch(node.left, value);
+        } else {
+          return this.recursiveSearch(node.right, value);
+        }
+      }
     }
     remove(value: T): void {
       throw new Error("Method not implemented.");
